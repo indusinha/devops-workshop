@@ -7,9 +7,13 @@ resource "aws_instance" "demo-server" {
   ami = "ami-02d26659fd82cf299"
   instance_type = "t3.micro"
   key_name = "dpp"
-  security_groups = [ "demo-sg"]
-}
+  
+  vpc_security_group_ids = [aws_security_group.demo-sg.id]
 
+  tags = {
+    Name = "demo-server"
+}
+}
 resource "aws_security_group" "demo-sg" {
   name        = "demo-sg"
   description = "SSH Access"
